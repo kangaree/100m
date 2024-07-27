@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100 Metres</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        #track {
+            position: relative;
+            width: 80%;
+            margin: 20px auto;
+            border: 2px solid #000;
+            background-color: #d66352;
+            overflow: hidden;
+        }
+        .runner {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .runner-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        .runner.running .runner-svg {
+            animation: runMotion 0.5s infinite;
+        }
+        @keyframes runMotion {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(5deg); }
+            100% { transform: rotate(0deg); }
+        }
+        #controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #key {
+            margin: 20px auto;
+            width: 80%;
+            text-align: left;
+        }
+        .key-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .key-color {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .key-label {
+            font-size: 14px;
+        }
+
+        #track .line {
+            position: absolute;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background-color: white;
+            z-index: 1;
+        }
+        #track .line:nth-of-type(1) { left: 10%; }
+        #track .line:nth-of-type(2) { left: 20%; }
+        #track .line:nth-of-type(3) { left: 30%; }
+        #track .line:nth-of-type(4) { left: 40%; }
+        #track .line:nth-of-type(5) { left: 50%; }
+        #track .line:nth-of-type(6) { left: 60%; }
+        #track .line:nth-of-type(7) { left: 70%; }
+        #track .line:nth-of-type(8) { left: 80%; }
+        #track .line:nth-of-type(9) { left: 90%; }
+
+        /* Timer styles */
+        #timer {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>100 Metres</h1>
+    <div id="track">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="runner" id="runner-usain">
+            <div class="runner-container">
+                <svg class="runner-svg" viewBox="0 0 64 64" fill="red" width="50" height="50">
+                    <!-- Head -->
+                    <circle cx="32" cy="16" r="8" fill="red"/>
+                    <!-- Body -->
+                    <path d="M24,24 L40,24 L36,40 L28,40 Z" fill="red"/>
+                    <!-- Arms -->
+                    <path d="M22,26 L18,30 L22,34" stroke="red" stroke-width="4" fill="none"/>
+                    <path d="M42,26 L46,30 L42,34" stroke="red" stroke-width="4" fill="none"/>
+                    <!-- Legs in motion -->
+                    <path d="M28,40 L30,54 L34,50 L36,40" fill="red"/>
+                    <path d="M28,40 L30,50 L34,54 L36,40" fill="red"/>
+                </svg>
+            </div>
+        </div>
+        <div class="runner" id="runner-powell">
+            <div class="runner-container">
+                <svg class="runner-svg" viewBox="0 0 64 64" fill="green" width="50" height="50">
+                    <!-- Head -->
+                    <circle cx="32" cy="16" r="8" fill="green"/>
+                    <!-- Body -->
+                    <path d="M24,24 L40,24 L36,40 L28,40 Z" fill="green"/>
+                    <!-- Arms -->
+                    <path d="M22,26 L18,30 L22,34" stroke="green" stroke-width="4" fill="none"/>
+                    <path d="M42,26 L46,30 L42,34" stroke="green" stroke-width="4" fill="none"/>
+                    <!-- Legs in motion -->
+                    <path d="M28,40 L30,54 L34,50 L36,40" fill="green"/>
+                    <path d="M28,40 L30,50 L34,54 L36,40" fill="green"/>
+                </svg>
+            </div>
+        </div>
+        <div class="runner" id="runner-lewis">
+            <div class="runner-container">
+                <svg class="runner-svg" viewBox="0 0 64 64" fill="orange" width="50" height="50">
+                    <!-- Head -->
+                    <circle cx="32" cy="16" r="8" fill="orange"/>
+                    <!-- Body -->
+                    <path d="M24,24 L40,24 L36,40 L28,40 Z" fill="orange"/>
+                    <!-- Arms -->
+                    <path d="M22,26 L18,30 L22,34" stroke="orange" stroke-width="4" fill="none"/>
+                    <path d="M42,26 L46,30 L42,34" stroke="orange" stroke-width="4" fill="none"/>
+                    <!-- Legs in motion -->
+                    <path d="M28,40 L30,54 L34,50 L36,40" fill="orange"/>
+                    <path d="M28,40 L30,50 L34,54 L36,40" fill="orange"/>
+                </svg>
+            </div>
+        </div>
+        <div class="runner" id="runner-hayes">
+            <div class="runner-container">
+                <svg class="runner-svg" viewBox="0 0 64 64" fill="purple" width="50" height="50">
+                    <!-- Head -->
+                    <circle cx="32" cy="16" r="8" fill="purple"/>
+                    <!-- Body -->
+                    <path d="M24,24 L40,24 L36,40 L28,40 Z" fill="purple"/>
+                    <!-- Arms -->
+                    <path d="M22,26 L18,30 L22,34" stroke="purple" stroke-width="4" fill="none"/>
+                    <path d="M42,26 L46,30 L42,34" stroke="purple" stroke-width="4" fill="none"/>
+                    <!-- Legs in motion -->
+                    <path d="M28,40 L30,54 L34,50 L36,40" fill="purple"/>
+                    <path d="M28,40 L30,50 L34,54 L36,40" fill="purple"/>
+                </svg>
+            </div>
+        </div>
+        <div class="runner" id="runner-lippincott">
+            <div class="runner-container">
+                <svg class="runner-svg" viewBox="0 0 64 64" fill="yellow" width="50" height="50">
+                    <!-- Head -->
+                    <circle cx="32" cy="16" r="8" fill="yellow"/>
+                    <!-- Body -->
+                    <path d="M24,24 L40,24 L36,40 L28,40 Z" fill="yellow"/>
+                    <!-- Arms -->
+                    <path d="M22,26 L18,30 L22,34" stroke="yellow" stroke-width="4" fill="none"/>
+                    <path d="M42,26 L46,30 L42,34" stroke="yellow" stroke-width="4" fill="none"/>
+                    <!-- Legs in motion -->
+                    <path d="M28,40 L30,54 L34,50 L36,40" fill="yellow"/>
+                    <path d="M28,40 L30,50 L34,54 L36,40" fill="yellow"/>
+                </svg>
+            </div>
+        </div>
+        <div class="runner" id="runner-nasra">
+            <div class="runner-container">
+                <svg class="runner-svg" viewBox="0 0 64 64" fill="blue" width="50" height="50">
+                    <!-- Head -->
+                    <circle cx="32" cy="16" r="8" fill="blue"/>
+                    <!-- Body -->
+                    <path d="M24,24 L40,24 L36,40 L28,40 Z" fill="blue"/>
+                    <!-- Arms -->
+                    <path d="M22,26 L18,30 L22,34" stroke="blue" stroke-width="4" fill="none"/>
+                    <path d="M42,26 L46,30 L42,34" stroke="blue" stroke-width="4" fill="none"/>
+                    <!-- Legs in motion -->
+                    <path d="M28,40 L30,54 L34,50 L36,40" fill="blue"/>
+                    <path d="M28,40 L30,50 L34,54 L36,40" fill="blue"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div id="key">
+        <div class="key-item">
+            <div class="key-color" style="background-color: red;"></div>
+            <div class="key-label">Usain Bolt</div>
+        </div>
+        <div class="key-item">
+            <div class="key-color" style="background-color: green;"></div>
+            <div class="key-label">Asafa Powell</div>
+        </div>
+        <div class="key-item">
+            <div class="key-color" style="background-color: orange;"></div>
+            <div class="key-label">Carl Lewis</div>
+        </div>
+        <div class="key-item">
+            <div class="key-color" style="background-color: purple;"></div>
+            <div class="key-label">Bob Hayes</div>
+        </div>
+        <div class="key-item">
+            <div class="key-color" style="background-color: yellow;"></div>
+            <div class="key-label">Donald Lippincott</div>
+        </div>
+        <div class="key-item">
+            <div class="key-color" style="background-color: blue;"></div>
+            <div class="key-label">Nasra Ali Abukar</div>
+        </div>
+    </div>
+
+    <div id="controls">
+        <button onclick="startRace()">Start Race</button>
+    </div>
+
+    <div id="timer">Time: 0.00s</div>
+
+    <script>
+        const runners = {
+            'usain': 9.58,
+            'powell': 9.735,
+            'lewis': 9.93,
+            'hayes': 10.6,
+            'lippincott': 9.95,
+            'nasra': 21.81
+        };
+
+        const runnerElements = {
+            'usain': document.getElementById('runner-usain'),
+            'powell': document.getElementById('runner-powell'),
+            'lewis': document.getElementById('runner-lewis'),
+            'hayes': document.getElementById('runner-hayes'),
+            'lippincott': document.getElementById('runner-lippincott'),
+            'nasra': document.getElementById('runner-nasra')
+        };
+
+        const trackWidth = document.getElementById('track').offsetWidth;
+        const timerDisplay = document.getElementById('timer');
+        let startTime, timerInterval;
+
+        function animateRunner(runnerId, duration) {
+            const distance = trackWidth - runnerElements[runnerId].offsetWidth;
+            runnerElements[runnerId].classList.add('running');
+            runnerElements[runnerId].style.transition = `transform ${duration}s linear`;
+            runnerElements[runnerId].style.transform = `translateX(${distance}px)`;
+        }
+
+        function startRace() {
+            startTime = Date.now();
+            timerInterval = setInterval(updateTimer, 10); // Update timer every 10ms
+            for (const [runnerId, time] of Object.entries(runners)) {
+                runnerElements[runnerId].classList.remove('running'); // Reset animation class
+                runnerElements[runnerId].style.transition = '';  // Reset any existing transition
+                runnerElements[runnerId].style.transform = `translateX(0)`;  // Reset position
+                animateRunner(runnerId, time);
+            }
+        }
+
+        function updateTimer() {
+            const elapsedTime = (Date.now() - startTime) / 1000;
+            timerDisplay.textContent = `Time: ${elapsedTime.toFixed(2)}s`;
+        }
+    </script>
+</body>
+</html>
